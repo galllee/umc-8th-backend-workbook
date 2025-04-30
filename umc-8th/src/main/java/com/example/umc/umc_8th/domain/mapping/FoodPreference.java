@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class FoodPreference extends BaseEntity {
 
     @Id
-    @(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
