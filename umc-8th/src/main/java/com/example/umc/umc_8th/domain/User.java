@@ -27,22 +27,31 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
+    @Column(length = 20)
+    private String address;
+
+    @Column(length = 20)
+    private String specAddress;
+
     @Column(columnDefinition = "VARCHAR(10)")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private LocalDate birthDate;
+    //socialtype
+    //memberstatus
+
+    private LocalDate inactiveDate;
 
     @Column(length = 20)
-    private String address;
+    private String email;
 
     private Integer point;
 
-    @Column(length = 20)
-    private String phone;
+//    private LocalDate birthDate;
 
-    @Column
-    private String email;
+
+//    @Column(length = 20)
+//    private String phone;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserAgree> userAgreeList = new ArrayList<>();
