@@ -1,0 +1,27 @@
+package com.example.umc.umc_8th.controller;
+
+import com.example.umc.umc_8th.apiPayload.ApiResponse;
+import com.example.umc.umc_8th.dto.request.UserRequestDTO;
+import com.example.umc.umc_8th.dto.response.UserResponseDTO;
+import com.example.umc.umc_8th.service.UserCommandService;
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/users")
+public class UserRestController {
+
+    private final UserCommandService userCommandService;
+
+    // 회원가입 api
+    @PostMapping("/")
+    public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody UserRequestDTO.JoinDto request){ //@Valid UserRequestDTO request) {
+        return null;
+    }
+}

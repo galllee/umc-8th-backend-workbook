@@ -36,12 +36,16 @@ public class User extends BaseEntity {
     @Column(length = 20)
     private String address;
 
+    @Column(length = 40)
+    private String specAddress;
+
     private Integer point;
 
     @Column(length = 20)
     private String phone;
 
-    @Column
+    //@Column(nullable = false, length = 50)
+    //소셜로그인 제외 개발중
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
