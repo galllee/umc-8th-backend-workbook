@@ -22,16 +22,16 @@ public class Mission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
-
     private Integer point;
+
+    private LocalDate deadline;
 
     @Column(length = 255)
     private String detail;
 
-    private LocalDate deadline;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<AcceptedMission> acceptedMissionList = new ArrayList<>();
