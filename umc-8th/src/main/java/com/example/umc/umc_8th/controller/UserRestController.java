@@ -1,6 +1,8 @@
 package com.example.umc.umc_8th.controller;
 
 import com.example.umc.umc_8th.apiPayload.ApiResponse;
+import com.example.umc.umc_8th.converter.UserConverter;
+import com.example.umc.umc_8th.domain.User;
 import com.example.umc.umc_8th.dto.request.UserRequestDTO;
 import com.example.umc.umc_8th.dto.response.UserResponseDTO;
 import com.example.umc.umc_8th.service.UserCommandService;
@@ -22,6 +24,7 @@ public class UserRestController {
     // 회원가입 api
     @PostMapping("/")
     public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody UserRequestDTO.JoinDto request){ //@Valid UserRequestDTO request) {
-        return null;
+        User user = userCommandService.joinUser(request);
+        return ApiResponse.onSuccess(UserConverter.toJoinResultDTO(user));
     }
 }
