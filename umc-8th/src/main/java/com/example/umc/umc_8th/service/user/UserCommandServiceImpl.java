@@ -1,4 +1,4 @@
-package com.example.umc.umc_8th.service;
+package com.example.umc.umc_8th.service.user;
 
 import com.example.umc.umc_8th.apiPayload.code.status.ErrorStatus;
 import com.example.umc.umc_8th.apiPayload.exception.handler.FoodCategoryHandler;
@@ -38,5 +38,6 @@ public class UserCommandServiceImpl implements UserCommandService {
         foodPreferList.forEach(foodPrefer -> {foodPrefer.setUser(newUser);});
 
         return userRepository.save(newUser);
+        // 미리 food category를 찾아와서 컨버터 함수에 넣어주는 방식으로 수정하고 싶음
     }
 }
