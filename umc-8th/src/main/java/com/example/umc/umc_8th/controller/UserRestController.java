@@ -6,6 +6,7 @@ import com.example.umc.umc_8th.domain.User;
 import com.example.umc.umc_8th.dto.request.UserRequestDTO;
 import com.example.umc.umc_8th.dto.response.UserResponseDTO;
 import com.example.umc.umc_8th.service.UserCommandService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ public class UserRestController {
 
     // 회원가입 api
     @PostMapping("/")
-    public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody UserRequestDTO.JoinDto request){ //@Valid UserRequestDTO request) {
+    public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody @Valid UserRequestDTO.JoinDto request) {
         User user = userCommandService.joinUser(request);
         return ApiResponse.onSuccess(UserConverter.toJoinResultDTO(user));
     }
