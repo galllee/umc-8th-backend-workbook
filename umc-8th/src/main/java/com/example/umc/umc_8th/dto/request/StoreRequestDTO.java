@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class StoreRequestDTO {
@@ -26,5 +27,15 @@ public class StoreRequestDTO {
         @NotNull
         //@ExistCategory
         private Long foodCategoryId;
+    }
+
+    @Getter
+    public static class CreateMissionDTO {
+        @NotNull
+        private Integer point;
+        @NotNull
+        private LocalDate deadline;
+        @NotBlank
+        private String detail;
     }
 }

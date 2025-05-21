@@ -2,6 +2,7 @@ package com.example.umc.umc_8th.controller;
 
 import com.example.umc.umc_8th.apiPayload.ApiResponse;
 import com.example.umc.umc_8th.converter.StoreConverter;
+import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.Store;
 import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.dto.response.StoreResponseDTO;
@@ -9,10 +10,7 @@ import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import com.example.umc.umc_8th.service.store.StoreCommandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +28,11 @@ public class StoreRestController {
     //가게에 리뷰 추가
 
     //가게에 미션 추가
+    @PostMapping("{storeId}/missions")
+    public ApiResponse<StoreResponseDTO.CreateMissionDTO> createMission(@RequestBody @Valid StoreRequestDTO.CreateMissionDTO request, @PathVariable Long storeId) {
+        Mission mission = storeCommandService.createMission(request, storeId);
 
+        return ApiResponse.onSuccess(StoreConverter.toCreateMissionDTO(mission));
+    }
     //가게의 미션을 도전 중인 미션에 추가 (미션 도전하기)
 }
