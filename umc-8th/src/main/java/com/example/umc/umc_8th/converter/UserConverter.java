@@ -18,7 +18,7 @@ public class UserConverter {
     }
 
     //유저 생성
-    public static User toUser(UserRequestDTO.JoinDto request) {
+    public static User toUser(UserRequestDTO.JoinDTO request) {
         Gender gender = null;
 
         switch (request.getGender()) {

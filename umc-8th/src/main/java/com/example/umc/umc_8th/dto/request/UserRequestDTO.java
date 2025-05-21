@@ -11,7 +11,7 @@ import java.util.List;
 public class UserRequestDTO {
 
     @Getter
-    public static class JoinDto{
+    public static class JoinDTO{
         @NotBlank
         String name;
         @NotNull

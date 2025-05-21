@@ -26,4 +26,9 @@ public class StoreResponseDTO {
         Long missionId;
         LocalDateTime createdAt;
     }
+
+    public static class CreateReviewDTO {
+        Long reviewId;
+        LocalDateTime createdAt;
+    }
 }
