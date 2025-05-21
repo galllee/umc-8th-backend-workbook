@@ -1,4 +1,4 @@
-package com.example.umc.umc_8th.store;
+package com.example.umc.umc_8th.service.store;
 
 import com.example.umc.umc_8th.domain.Store;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;

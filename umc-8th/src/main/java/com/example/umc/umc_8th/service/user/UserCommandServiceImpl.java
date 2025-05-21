@@ -1,4 +1,4 @@
-package com.example.umc.umc_8th.service;
+package com.example.umc.umc_8th.service.user;
 
 import com.example.umc.umc_8th.apiPayload.code.status.ErrorStatus;
 import com.example.umc.umc_8th.apiPayload.exception.handler.FoodCategoryHandler;
@@ -32,11 +32,13 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .map(category -> {
                     return foodCategoryRepository.findById(category).orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
+        //여기서도 결국 존재 여부를 또 검사 해주니까.. 커스텀 어노테이션 필요가 없는듯
 
         List<FoodPreference> foodPreferList = FoodPreferConverter.toFoodPreferList(foodCategoryList);
 
         foodPreferList.forEach(foodPrefer -> {foodPrefer.setUser(newUser);});
 
         return userRepository.save(newUser);
+        // 미리 food category를 찾아와서 컨버터 함수에 넣어주는 방식으로 수정하고 싶음
     }
 }

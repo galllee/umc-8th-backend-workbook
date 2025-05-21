@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Fetch;
 
 @Entity
@@ -16,7 +17,7 @@ import org.hibernate.annotations.Fetch;
 public class Store extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(length = 20)
     private String name;
@@ -24,6 +25,7 @@ public class Store extends BaseEntity {
     @Column(length = 40)
     private String address;
 
+    @ColumnDefault("0")
     private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
