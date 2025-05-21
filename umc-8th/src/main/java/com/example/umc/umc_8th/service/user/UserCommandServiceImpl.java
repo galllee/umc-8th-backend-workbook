@@ -32,6 +32,7 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .map(category -> {
                     return foodCategoryRepository.findById(category).orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
+        //여기서도 결국 존재 여부를 또 검사 해주니까.. 커스텀 어노테이션 필요가 없는듯
 
         List<FoodPreference> foodPreferList = FoodPreferConverter.toFoodPreferList(foodCategoryList);
 

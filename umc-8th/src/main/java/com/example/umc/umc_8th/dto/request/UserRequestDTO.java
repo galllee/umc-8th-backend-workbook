@@ -26,7 +26,8 @@ public class UserRequestDTO {
         String address;
         @Size(min = 5, max = 12)
         String specAddress;
-        @ExistCategories
+        //@ExistCategories
+        @NotNull
         List<Long> preferCategory;
     }
 }

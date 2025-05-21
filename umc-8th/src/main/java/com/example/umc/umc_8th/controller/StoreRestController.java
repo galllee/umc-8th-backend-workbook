@@ -27,7 +27,6 @@ public class StoreRestController {
         return ApiResponse.onSuccess(StoreConverter.toCreateStoreDTO(store));
     }
 
-
     //가게에 리뷰 추가
 
     //가게에 미션 추가
