@@ -26,7 +26,7 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Override
     @Transactional
-    public User joinUser(UserRequestDTO.JoinDto request) {
+    public User joinUser(UserRequestDTO.JoinDTO request) {
         User newUser = UserConverter.toUser(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> {

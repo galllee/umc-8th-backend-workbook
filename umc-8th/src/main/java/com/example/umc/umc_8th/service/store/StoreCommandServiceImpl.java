@@ -1,11 +1,21 @@
 package com.example.umc.umc_8th.service.store;
 
 import com.example.umc.umc_8th.converter.StoreConverter;
+import com.example.umc.umc_8th.domain.FoodCategory;
+import com.example.umc.umc_8th.domain.Mission;
+import com.example.umc.umc_8th.domain.Region;
+import com.example.umc.umc_8th.domain.Store;
 import com.example.umc.umc_8th.domain.*;
 import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.RegionRepository;
+import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
+import com.example.umc.umc_8th.domain.*;
+import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
+import com.example.umc.umc_8th.repository.FoodCategoryRepository;
+import com.example.umc.umc_8th.repository.RegionRepository;
+import com.example.umc.umc_8th.repository.StoreRepository.ReviewRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.AcceptedMissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
@@ -21,9 +31,12 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final StoreRepository storeRepository;
     private final MissionRepository missionRepository;
     private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
+    private final UserRepository userRepository;
     private final AcceptedMissionRepository acceptedMissionRepository;
 
-    public Store createStore(StoreRequestDTO.CreateStoreDto request) {
+    public Store createStore(StoreRequestDTO.CreateStoreDTO request) {
         Region region = regionRepository.findById(request.getRegionId())
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 지역이 없습니다."));
 
@@ -33,6 +46,27 @@ public class StoreCommandServiceImpl implements StoreCommandService {
         Store newStore = StoreConverter.toStore(request, region, foodCategory);
 
         return storeRepository.save(newStore);
+    }
+
+    public Mission createMission(StoreRequestDTO.CreateMissionDTO request, Long storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 가게가 없습니다."));
+
+        Mission newMission = StoreConverter.toMission(request, store);
+
+        return missionRepository.save(newMission);
+    }
+
+    public Review createReview(StoreRequestDTO.CreateReviewDTO request, Long storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 가게가 없습니다."));
+
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 사용자가 없습니다."));
+
+        Review newReview = StoreConverter.toReview(request, store, user);
+
+        return reviewRepository.save(newReview);
     }
 
     public AcceptedMission createAcceptedMission(StoreRequestDTO.AcceptMissionDTO request, Long missionId) {
