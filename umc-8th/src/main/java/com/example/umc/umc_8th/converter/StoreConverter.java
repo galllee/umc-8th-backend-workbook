@@ -1,8 +1,7 @@
 package com.example.umc.umc_8th.converter;
 
-import com.example.umc.umc_8th.domain.FoodCategory;
-import com.example.umc.umc_8th.domain.Region;
-import com.example.umc.umc_8th.domain.Store;
+import com.example.umc.umc_8th.domain.*;
+import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.dto.response.StoreResponseDTO;
 
@@ -23,6 +22,20 @@ public class StoreConverter {
                 .address(request.getAddress())
                 .region(region)
                 .foodCategory(foodCategory)
+                .build();
+    }
+
+    public static StoreResponseDTO.AcceptMissionDTO toAcceptMissionDTO(AcceptedMission acceptedMission) {
+        return StoreResponseDTO.AcceptMissionDTO.builder()
+                .acceptedMissionId(acceptedMission.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static AcceptedMission toAcceptedMission(StoreRequestDTO.AcceptMissionDTO request, User user, Mission mission) {
+        return AcceptedMission.builder()
+                .user(user)
+                .mission(mission)
                 .build();
     }
 }

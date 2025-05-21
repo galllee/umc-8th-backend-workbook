@@ -27,4 +27,10 @@ public class StoreRequestDTO {
         //@ExistCategory
         private Long foodCategoryId;
     }
+
+    @Getter
+    public static class AcceptMissionDTO {
+        @NotNull
+        private Long userId;
+    }
 }
