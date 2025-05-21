@@ -38,13 +38,19 @@ public class StoreRequestDTO {
         @NotBlank
         private String detail;
     }
-    
+
     public static class CreateReviewDTO {
         @NotNull
         private Long userId;
         @NotNull
         private Float score;
         @Size(min = 1, max = 200)
-        private Strine detail;
+        private String detail;
+    }
+
+    @Getter
+    public static class AcceptMissionDTO {
+        @NotNull
+        private Long userId;
     }
 }

@@ -3,13 +3,16 @@ package com.example.umc.umc_8th.controller;
 import com.example.umc.umc_8th.apiPayload.ApiResponse;
 import com.example.umc.umc_8th.converter.StoreConverter;
 import com.example.umc.umc_8th.domain.Mission;
+import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.Review;
 import com.example.umc.umc_8th.domain.Store;
+import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.dto.response.StoreResponseDTO;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import com.example.umc.umc_8th.service.store.StoreCommandService;
 import com.example.umc.umc_8th.validation.annotation.ExistStore;
+import com.example.umc.umc_8th.validation.annotation.NotAlreadyAccepted;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
@@ -46,4 +49,11 @@ public class StoreRestController {
         return ApiResponse.onSuccess(StoreConverter.toCreateMissionDTO(mission));
     }
     //가게의 미션을 도전 중인 미션에 추가 (미션 도전하기)
+    @PostMapping("/missions/{missionId}") // storeId가 필요할까? missioncontroller로 독립해도 괜찮을듯
+    public ApiResponse<StoreResponseDTO.AcceptMissionDTO> acceptMission(@RequestBody @Valid StoreRequestDTO.AcceptMissionDTO request, @PathVariable @NotAlreadyAccepted Long missionId) {
+        AcceptedMission acceptedMission = storeCommandService.createAcceptedMission(request, missionId);
+
+        return ApiResponse.onSuccess(StoreConverter.toAcceptMissionDTO(acceptedMission));
+    }
+
 }

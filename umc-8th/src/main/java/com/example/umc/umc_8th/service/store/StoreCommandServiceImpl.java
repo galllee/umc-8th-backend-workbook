@@ -5,6 +5,8 @@ import com.example.umc.umc_8th.domain.FoodCategory;
 import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.Region;
 import com.example.umc.umc_8th.domain.Store;
+import com.example.umc.umc_8th.domain.*;
+import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.RegionRepository;
@@ -14,6 +16,8 @@ import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.RegionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.ReviewRepository;
+import com.example.umc.umc_8th.repository.StoreRepository.AcceptedMissionRepository;
+import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import com.example.umc.umc_8th.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,9 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final MissionRepository missionRepository;
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
+    private final UserRepository userRepository;
+    private final AcceptedMissionRepository acceptedMissionRepository;
 
     public Store createStore(StoreRequestDTO.CreateStoreDTO request) {
         Region region = regionRepository.findById(request.getRegionId())
@@ -61,4 +68,18 @@ public class StoreCommandServiceImpl implements StoreCommandService {
 
         return reviewRepository.save(newReview);
     }
+
+    public AcceptedMission createAcceptedMission(StoreRequestDTO.AcceptMissionDTO request, Long missionId) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 사용자가 없습니다."));
+
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 미션이 없습니다."));
+        // valid에서 미션이 도전중인지 여부를 검사하는데, 그때 미션 존재 여부도 같이 검사 되는거 아닌가? 한번 더 해야할 이유가 있나?
+
+        AcceptedMission newAcceptedMission = StoreConverter.toAcceptedMission(request, user, mission);
+
+        return acceptedMissionRepository.save(newAcceptedMission);
+    }
+
 }

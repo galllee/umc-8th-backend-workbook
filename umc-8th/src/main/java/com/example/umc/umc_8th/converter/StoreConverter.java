@@ -1,5 +1,7 @@
 package com.example.umc.umc_8th.converter;
 
+import com.example.umc.umc_8th.domain.*;
+import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.domain.FoodCategory;
 import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.Region;
@@ -31,7 +33,7 @@ public class StoreConverter {
 
     public static StoreResponseDTO.CreateMissionDTO toCreateMissionDTO(Mission mission) {
         return StoreResponseDTO.CreateMissionDTO.builder()
-                .missionId(mission.getId())
+                .missionId(mission.getId());
     }
 
     public static StoreResponseDTO.CreateReviewDTO toCreateReviewDTO(Review review) {
@@ -47,13 +49,27 @@ public class StoreConverter {
                 .deadline(request.getDeadline())
                 .store(store)
     }
-  
+
     public static Review toReview(StoreRequestDTO.CreateReviewDTO request, Store store, User user) {
         return Review.builder()
                 .user(user)
                 .store(store)
                 .score(request.getScore())
                 .detail(request.getDetail())
+                .build();
+    }
+
+    public static StoreResponseDTO.AcceptMissionDTO toAcceptMissionDTO(AcceptedMission acceptedMission) {
+        return StoreResponseDTO.AcceptMissionDTO.builder()
+                .acceptedMissionId(acceptedMission.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static AcceptedMission toAcceptedMission(StoreRequestDTO.AcceptMissionDTO request, User user, Mission mission) {
+        return AcceptedMission.builder()
+                .user(user)
+                .mission(mission)
                 .build();
     }
 }
