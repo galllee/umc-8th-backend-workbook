@@ -68,7 +68,6 @@ public class StoreCommandServiceImpl implements StoreCommandService {
 
         Mission mission = missionRepository.findById(missionId)
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 미션이 없습니다."));
-        // valid에서 미션이 도전중인지 여부를 검사하는데, 그때 미션 존재 여부도 같이 검사 되는거 아닌가? 한번 더 해야할 이유가 있나?
 
         AcceptedMission newAcceptedMission = StoreConverter.toAcceptedMission(request, user, mission);
 
