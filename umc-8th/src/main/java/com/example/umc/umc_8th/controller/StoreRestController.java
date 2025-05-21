@@ -12,10 +12,12 @@ import com.example.umc.umc_8th.validation.annotation.ExistStore;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 @RequestMapping("/stores")
 public class StoreRestController {
     private final StoreCommandService storeCommandService;
