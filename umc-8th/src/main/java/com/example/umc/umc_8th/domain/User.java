@@ -58,9 +58,6 @@ public class User extends BaseEntity {
     //소셜로그인 제외 개발중
     private String email;
 
-//    @Column(length = 20)
-//    private String phone;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserAgree> userAgreeList = new ArrayList<>();
 
