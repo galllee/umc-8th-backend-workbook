@@ -15,7 +15,7 @@ import java.util.List;
 public class StoreRequestDTO {
 
     @Getter
-    public static class CreateStoreDto {
+    public static class CreateStoreDTO {
         @NotBlank
         private String name;
         @Size(min = 5, max = 12)
@@ -26,5 +26,15 @@ public class StoreRequestDTO {
         @NotNull
         //@ExistCategory
         private Long foodCategoryId;
+    }
+
+    @Getter
+    public static class CreateReviewDTO {
+        @NotNull
+        private Long userId;
+        @NotNull
+        private Float score;
+        @Size(min = 1, max = 200)
+        private String detail;
     }
 }
