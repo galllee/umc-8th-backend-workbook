@@ -11,13 +11,8 @@ import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
 import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.RegionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
-import com.example.umc.umc_8th.domain.*;
-import com.example.umc.umc_8th.dto.request.StoreRequestDTO;
-import com.example.umc.umc_8th.repository.FoodCategoryRepository;
-import com.example.umc.umc_8th.repository.RegionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.ReviewRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.AcceptedMissionRepository;
-import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import com.example.umc.umc_8th.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +27,6 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     private final MissionRepository missionRepository;
     private final UserRepository userRepository;
     private final ReviewRepository reviewRepository;
-    private final MissionRepository missionRepository;
-    private final UserRepository userRepository;
     private final AcceptedMissionRepository acceptedMissionRepository;
 
     public Store createStore(StoreRequestDTO.CreateStoreDTO request) {

@@ -39,6 +39,7 @@ public class StoreRequestDTO {
         private String detail;
     }
 
+    @Getter
     public static class CreateReviewDTO {
         @NotNull
         private Long userId;

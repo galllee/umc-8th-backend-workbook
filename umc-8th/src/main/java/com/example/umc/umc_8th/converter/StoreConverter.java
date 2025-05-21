@@ -33,7 +33,9 @@ public class StoreConverter {
 
     public static StoreResponseDTO.CreateMissionDTO toCreateMissionDTO(Mission mission) {
         return StoreResponseDTO.CreateMissionDTO.builder()
-                .missionId(mission.getId());
+                .missionId(mission.getId())
+                .createdAt(LocalDateTime.now())
+                .build();
     }
 
     public static StoreResponseDTO.CreateReviewDTO toCreateReviewDTO(Review review) {
@@ -48,6 +50,8 @@ public class StoreConverter {
                 .point(request.getPoint())
                 .deadline(request.getDeadline())
                 .store(store)
+                .detail(request.getDetail())
+                .build();
     }
 
     public static Review toReview(StoreRequestDTO.CreateReviewDTO request, Store store, User user) {
