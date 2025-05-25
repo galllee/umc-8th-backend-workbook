@@ -46,7 +46,7 @@ public class StoreRequestDTO {
         @NotNull
         private Float score;
         @Size(min = 1, max = 200)
-        private String detail;
+        private String body;
     }
 
     @Getter
