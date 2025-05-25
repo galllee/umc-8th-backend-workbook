@@ -25,6 +25,7 @@ public enum ErrorStatus implements BaseErrorCode{
     MISSION_ALREADY_ACCEPTED(HttpStatus.BAD_REQUEST, "ACCEPTEDMISSION4001", "미션이 이미 진행중입니다."),
     STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "가게가 존재하지 않습니다."),
 
+    PAGE_INVALID(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지는 1 이상의 숫자여야 합니다."),
     // 예시
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다.");
 
