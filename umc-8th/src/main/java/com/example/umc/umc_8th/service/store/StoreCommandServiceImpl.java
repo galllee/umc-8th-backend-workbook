@@ -17,6 +17,7 @@ import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import com.example.umc.umc_8th.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -74,4 +75,17 @@ public class StoreCommandServiceImpl implements StoreCommandService {
         return acceptedMissionRepository.save(newAcceptedMission);
     }
 
+    @Transactional
+    public AcceptedMission completeMission(Long acceptedMissionId) {
+        AcceptedMission acceptedMission = acceptedMissionRepository.findById(acceptedMissionId)
+                .orElseThrow(() -> new IllegalArgumentException("해당하는 진행 중인 미션이 없습니다."));
+
+        if (acceptedMission.getStatus() == AcceptedMissionStatus.COMPLETED) {
+            throw new IllegalStateException("이미 완료된 미션입니다.");
+        }
+
+        acceptedMission.completeMission();
+
+        return acceptedMission;
+    }
 }

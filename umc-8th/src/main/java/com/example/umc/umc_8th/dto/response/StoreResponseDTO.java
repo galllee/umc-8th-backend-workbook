@@ -120,4 +120,13 @@ public class StoreResponseDTO {
         AcceptedMissionStatus status;
         // deadline?
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CompleteMissionDTO {
+        private String missionDetail;
+        private LocalDateTime completedAt;
+    }
 }
