@@ -1,5 +1,6 @@
 package com.example.umc.umc_8th.domain.mapping;
 
+import com.example.umc.umc_8th.domain.AcceptedMissionStatus;
 import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.User;
 import com.example.umc.umc_8th.domain.common.BaseEntity;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -19,6 +21,10 @@ public class AcceptedMission extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'IN_PROGRESS'")
+    private AcceptedMissionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

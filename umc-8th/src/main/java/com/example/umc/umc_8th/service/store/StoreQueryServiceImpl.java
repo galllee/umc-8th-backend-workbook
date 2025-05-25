@@ -4,6 +4,8 @@ import com.example.umc.umc_8th.domain.Mission;
 import com.example.umc.umc_8th.domain.Review;
 import com.example.umc.umc_8th.domain.Store;
 import com.example.umc.umc_8th.domain.User;
+import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
+import com.example.umc.umc_8th.repository.StoreRepository.AcceptedMissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.ReviewRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
@@ -25,6 +27,7 @@ public class StoreQueryServiceImpl implements StoreQueryService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final MissionRepository missionRepository;
+    private final AcceptedMissionRepository acceptedMissionRepository;
 
     @Override
     public Optional<Store> findStore(Long id) {
@@ -72,4 +75,12 @@ public class StoreQueryServiceImpl implements StoreQueryService {
         return storePage;
     }
 
+    @Override
+    public Page<AcceptedMission> getMissionListByUserId(Long userId, Integer page) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
+
+        Page<AcceptedMission> progressingMissionPage = acceptedMissionRepository.findAllByUser(user, PageRequest.of(page, 10));
+        return progressingMissionPage;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.umc.umc_8th.dto.response;
 
+import com.example.umc.umc_8th.domain.AcceptedMissionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -92,6 +93,31 @@ public class StoreResponseDTO {
         String storeName;
         Integer point;
         String detail;
+        // deadline?
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreviewByUserListDTO {
+        List<MissionPreviewByUserDTO> missionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreviewByUserDTO {
+        String storeName;
+        Integer point;
+        String detail;
+        AcceptedMissionStatus status;
         // deadline?
     }
 }
