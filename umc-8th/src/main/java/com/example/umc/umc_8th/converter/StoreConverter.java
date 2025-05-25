@@ -124,4 +124,27 @@ public class StoreConverter {
                 .missionList(missionPreviewDTOList)
                 .build();
     }
+
+    public static StoreResponseDTO.MissionPreviewByUserDTO toMissionPreviewByUserDTO(AcceptedMission acceptedMission) {
+        return StoreResponseDTO.MissionPreviewByUserDTO.builder()
+                .storeName(acceptedMission.getMission().getStore().getName())
+                .point(acceptedMission.getMission().getPoint())
+                .detail(acceptedMission.getMission().getDetail())
+                .status(acceptedMission.getStatus())
+                .build();
+    }
+
+    public static StoreResponseDTO.MissionPreviewByUserListDTO toMissionPreviewByUserListDTO(Page<AcceptedMission> missionList) {
+        List<StoreResponseDTO.MissionPreviewByUserDTO> missionPreviewDTOList = missionList.stream()
+                .map(StoreConverter::toMissionPreviewByUserDTO).collect(Collectors.toList());
+
+        return StoreResponseDTO.MissionPreviewByUserListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreviewDTOList.size())
+                .missionList(missionPreviewDTOList)
+                .build();
+    }
 }

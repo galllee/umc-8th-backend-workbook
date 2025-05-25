@@ -31,6 +31,8 @@ public class QAcceptedMission extends EntityPathBase<AcceptedMission> {
 
     public final com.example.umc.umc_8th.domain.QMission mission;
 
+    public final EnumPath<com.example.umc.umc_8th.domain.AcceptedMissionStatus> status = createEnum("status", com.example.umc.umc_8th.domain.AcceptedMissionStatus.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
