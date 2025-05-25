@@ -1,8 +1,12 @@
 package com.example.umc.umc_8th.service.store;
 
+import com.example.umc.umc_8th.domain.Review;
 import com.example.umc.umc_8th.domain.Store;
+import com.example.umc.umc_8th.repository.StoreRepository.ReviewRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +18,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class StoreQueryServiceImpl implements StoreQueryService {
     private final StoreRepository storeRepository;
+    private final ReviewRepository reviewRepository;
 
     @Override
     public Optional<Store> findStore(Long id) {
@@ -28,4 +33,14 @@ public class StoreQueryServiceImpl implements StoreQueryService {
 
         return filteredStores;
     }
+
+    @Override
+    public Page<Review> getReviewList(Long storeId, Integer page) {
+        Store store = storeRepository.findById(storeId).get();
+
+        Page<Review> storePage = reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
+        return storePage;
+    }
+
+
 }
