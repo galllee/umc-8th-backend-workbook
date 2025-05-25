@@ -147,4 +147,11 @@ public class StoreConverter {
                 .missionList(missionPreviewDTOList)
                 .build();
     }
+
+    public static StoreResponseDTO.CompleteMissionDTO toCompleteMissionDTO(AcceptedMission completedMission) {
+        return StoreResponseDTO.CompleteMissionDTO.builder()
+                .missionDetail(completedMission.getMission().getDetail())
+                .completedAt(LocalDateTime.now())
+                .build();
+    }
 }

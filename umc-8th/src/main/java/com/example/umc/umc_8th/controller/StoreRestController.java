@@ -141,4 +141,23 @@ public class StoreRestController {
         Page<AcceptedMission> missionList = storeQueryService.getMissionListByUserId(userId, page);
         return ApiResponse.onSuccess(StoreConverter.toMissionPreviewByUserListDTO(missionList));
     }
+
+    // 진행 중인 미션 진행 완료로 바꾸기
+    // 얘도 결국 stores와는 상관 없어서 클래스 분리하면 좋을 것 같은데 일단 두기
+    @PatchMapping("/missions/{acceptedMissionId}/complete")
+    @Operation(summary = "진행 중인 미션 진행 완료로 바꾸기 API", description = "진행 중인 미션 진행 완료로 바꾸는 API이며, 페이징을 포함합니다. path param으로 acceptedMissionId를 주세요")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "access 토큰 만료", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "access 토큰 모양이 이상함", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "acceptedMissionId", description = "진행중인 미션 아이디, path variable 입니다!", in = ParameterIn.PATH)
+    })
+    public ApiResponse<StoreResponseDTO.CompleteMissionDTO> getMissionListByUserId(
+            @PathVariable(name = "acceptedMissionId") Long acceptedMissionId) {
+        AcceptedMission completedMission = storeCommandService.completeMission(acceptedMissionId);
+        return ApiResponse.onSuccess(StoreConverter.toCompleteMissionDTO(completedMission));
+    }
 }

@@ -11,3 +11,4 @@ public interface AcceptedMissionRepository extends JpaRepository<AcceptedMission
     boolean existsByMissionId(Long missionId);
     Page<AcceptedMission> findAllByUser(User user, PageRequest pageRequest);
 }
+
