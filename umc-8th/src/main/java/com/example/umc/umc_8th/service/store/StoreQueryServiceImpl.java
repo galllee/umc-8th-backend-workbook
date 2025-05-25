@@ -1,9 +1,6 @@
 package com.example.umc.umc_8th.service.store;
 
-import com.example.umc.umc_8th.domain.Mission;
-import com.example.umc.umc_8th.domain.Review;
-import com.example.umc.umc_8th.domain.Store;
-import com.example.umc.umc_8th.domain.User;
+import com.example.umc.umc_8th.domain.*;
 import com.example.umc.umc_8th.domain.mapping.AcceptedMission;
 import com.example.umc.umc_8th.repository.StoreRepository.AcceptedMissionRepository;
 import com.example.umc.umc_8th.repository.StoreRepository.MissionRepository;
@@ -80,7 +77,7 @@ public class StoreQueryServiceImpl implements StoreQueryService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다."));
 
-        Page<AcceptedMission> progressingMissionPage = acceptedMissionRepository.findAllByUser(user, PageRequest.of(page, 10));
+        Page<AcceptedMission> progressingMissionPage = acceptedMissionRepository.findAllByUserAndStatus(user, AcceptedMissionStatus.IN_PROGRESS, PageRequest.of(page, 10));
         return progressingMissionPage;
     }
 }
