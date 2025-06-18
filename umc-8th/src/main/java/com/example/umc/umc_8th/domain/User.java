@@ -54,9 +54,14 @@ public class User extends BaseEntity {
     @Column(length = 20)
     private String phone;
 
-    //@Column(nullable = false, length = 50)
-    //소셜로그인 제외 개발중
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserAgree> userAgreeList = new ArrayList<>();
@@ -70,4 +75,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<AcceptedMission> acceptedMissionList = new ArrayList<>();
 
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
