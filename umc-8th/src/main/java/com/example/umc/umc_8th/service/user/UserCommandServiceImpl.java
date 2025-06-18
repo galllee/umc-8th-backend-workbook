@@ -12,6 +12,7 @@ import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +24,15 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     private final UserRepository userRepository;
     private final FoodCategoryRepository foodCategoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
     public User joinUser(UserRequestDTO.JoinDTO request) {
         User newUser = UserConverter.toUser(request);
+
+        newUser.encodePassword(passwordEncoder.encode(request.getPassword()));
+
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> {
                     return foodCategoryRepository.findById(category).orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));

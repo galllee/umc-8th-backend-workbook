@@ -38,7 +38,10 @@ public class UserConverter {
                 .specAddress(request.getSpecAddress())
                 .gender(gender)
                 .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
                 .foodPreferList(new ArrayList<>())
+                .role(request.getRole())
                 .build();
     }
 }

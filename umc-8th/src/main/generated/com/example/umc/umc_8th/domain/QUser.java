@@ -43,11 +43,15 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath name = createString("name");
 
+    public final StringPath password = createString("password");
+
     public final StringPath phone = createString("phone");
 
     public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
+    public final EnumPath<Role> role = createEnum("role", Role.class);
 
     public final StringPath specAddress = createString("specAddress");
 
