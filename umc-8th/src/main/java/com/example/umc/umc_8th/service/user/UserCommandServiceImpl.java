@@ -8,13 +8,17 @@ import com.example.umc.umc_8th.domain.FoodCategory;
 import com.example.umc.umc_8th.domain.User;
 import com.example.umc.umc_8th.domain.mapping.FoodPreference;
 import com.example.umc.umc_8th.dto.request.UserRequestDTO;
+import com.example.umc.umc_8th.dto.response.UserResponseDTO;
 import com.example.umc.umc_8th.repository.FoodCategoryRepository;
 import com.example.umc.umc_8th.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,5 +49,27 @@ public class UserCommandServiceImpl implements UserCommandService {
 
         return userRepository.save(newUser);
         // 미리 food category를 찾아와서 컨버터 함수에 넣어주는 방식으로 수정하고 싶음
+    }
+
+    @Override
+    public UserResponseDTO.LoginResultDTO loginUser(UserRequestDTO.LoginRequestDTO request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new UserHandler(ErrorStatus.INVALID_PASSWORD);
+        }
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                user.getEmail(), null,
+                Collections.singleton(() -> user.getRole().name())
+        );
+
+        String accessToken = jwtTokenProvider.generateToken(authentication);
+
+        return UserConverter.toLoginResultDTO(
+                user.getId(),
+                accessToken
+        );
     }
 }
